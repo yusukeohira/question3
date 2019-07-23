@@ -14,3 +14,27 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['prefix'=>'admin'],function(){
+  Route::get('news/create','Admin\NewsController@add');
+});
+
+//課題３
+/*「http://XXXXXX.jp/XXX というアクセスが来たときに、 
+AAAControllerのbbbというAction に渡すRoutingの設定」を
+書いてみてください。
+Route::get('XXX','AAAController@bbb');
+*/
+
+//課題４
+Route::group(['prefix'=>'admin'],function(){
+  Route::get('profile/create','Admin\ProfileController@add');
+});
+
+Route::group(['prefix'=>'admin'],function(){
+  Route::get('profile/edit','Admin\ProfileController@edit');
+});
+
+
+
+
