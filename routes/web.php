@@ -27,14 +27,16 @@ Route::get('XXX','AAAController@bbb');
 */
 
 //課題４
-Route::group(['prefix'=>'admin'],function(){
-  Route::get('profile/create','Admin\ProfileController@add');
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+//メンタリングのときの宿題　１２の課題２と3
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+    Route::get('profile/create','Admin\ProfileController@add');
+    Route::get('profile/edit','Admin\ProfileController@edit');
+    Route::get('news/create', 'Admin\NewsController@add');
 });
-
-Route::group(['prefix'=>'admin'],function(){
-  Route::get('profile/edit','Admin\ProfileController@edit');
-});
-
-
-
-
