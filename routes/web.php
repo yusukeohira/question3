@@ -37,6 +37,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 //メンタリングのときの宿題　１２の課題２と3
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('profile/create','Admin\ProfileController@add');
+    //13の課題3
+    Route::post('profile/create','Admin\ProfileController@create');
+    //13の課題6
+    Route::post('profile/edit','Admin\ProfileController@update');
     Route::get('profile/edit','Admin\ProfileController@edit');
     Route::get('news/create', 'Admin\NewsController@add');
+    Route::post('news/create','Admin\NewsController@create');
+    
 });
