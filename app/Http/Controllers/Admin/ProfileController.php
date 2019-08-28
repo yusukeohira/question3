@@ -18,6 +18,11 @@ class ProfileController extends Controller
       $this->validate($request, Profile::$rules);
       $profile = new Profile;
       $form = $request->all();
+      
+      $profile->fill($form);
+      $profile->save();
+      
+      
       return redirect('admin/profile/create');
     }
     public function edit()
