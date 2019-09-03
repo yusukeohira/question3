@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Profile;
+use Auth;
 
 class ProfileController extends Controller
 {
@@ -20,6 +21,7 @@ class ProfileController extends Controller
       $form = $request->all();
       
       $profile->fill($form);
+      $profile->user_id = Auth::id();
       $profile->save();
       
       
