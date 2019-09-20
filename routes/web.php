@@ -43,6 +43,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     //13の課題6
     Route::post('profile/edit','Admin\ProfileController@update');
     Route::get('profile/edit','Admin\ProfileController@edit');
+    //課題15プロフィール一覧
+    Route::get('profile','Admin\ProfileController@index');
     Route::get('news/create', 'Admin\NewsController@add');
     Route::post('news/create','Admin\NewsController@create');
     Route::get('news','Admin\NewsController@index');

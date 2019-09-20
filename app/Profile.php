@@ -8,7 +8,6 @@ class Profile extends Model
 {
     protected $guarded = array('id');
     
-    
     public static $rules = array(
       'name' => 'required',
       'gender' =>'required',
@@ -18,5 +17,11 @@ class Profile extends Model
       
     public function user() {
       return $this->belongsTo(User::class);
+    }
+    
+    //課題17
+    public function histories()
+    {
+      return $this->hasMany('App\ProfileHistory');
     }
 }

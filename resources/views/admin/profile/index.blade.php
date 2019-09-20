@@ -1,5 +1,6 @@
-@extends('layouts.admin')
-@section('title', 'プロフィールの一覧')
+@extends('layouts.profile')
+@section('title', '登録済みプロフィールの一覧')
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -12,9 +13,9 @@
             <div class="col-md-8">
                 <form action="{{ action('Admin\ProfileController@index') }}" method="get">
                     <div class="form-group row">
-                        <label class="col-md-2">氏名</label>
+                        <label class="col-md-2">名前</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" name="cond_name" value="{{ $cond_name }}">
+                            <input type="text" class="form-control" name="cond_name" value={{ $cond_name }}>
                         </div>
                         <div class="col-md-2">
                             {{ csrf_field() }}
@@ -25,31 +26,34 @@
             </div>
         </div>
         <div class="row">
-            <div class="list-news col-md-12 mx-auto">
+            <div class="list-profile col-md-12 mx-auto">
                 <div class="row">
                     <table class="table table-dark">
                         <thead>
                             <tr>
                                 <th width="10%">ID</th>
-                                <th width="20%">タイトル</th>
-                                <th width="50%">本文</th>
+                                <th width="20%">名前</th>
+                                <th width="50%">自己紹介</th>
+                                <th width="10%">操作</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($posts as $news)
-                            <tr>
-                              <th>{{ $news->id }}</th>
-                                <td>{{ str_limit($news->title, 100) }}</td>
-                                <td>{{ str_limit($news->body, 250) }}</td>
-                                <td>
-                                    <div>
-                                      <a href="{{action('Admin\NewsController@edit',['id' => $news->id])}}">編集</a>
-                                    </div>
-                                    <div>
-                                      <a href="{{action('Admin\NewsController@delete',['id' => $news->id])}}">削除</a>
-                                    </div>
-                                </td>
-                            </tr>
+                            {{-- $postsはコントローラーに定義されている。Profileモデルの内容を取得。 --}}
+                            @foreach($posts as $profile)    
+                                <tr>
+                                    <th>{{ $profile->id }}</th>
+                                    <td>{{ str_limit($profile->name, 100) }}</td>
+                                    <td>{{ str_limit($profile->introduction, 250) }}</td>
+                                    <td>
+                                        <div>
+                            {{-- action関数は、指定されたコントローラアクションのURLを生成。 --}}  
+                            {{-- メソッドがルートパラメーターを受け付ける場合は、第２引数で指定。 --}}                
+                                            <a href="{{ action('Admin\ProfileController@edit', ['id' => $profile->id]) }}">編集</a>
+                                        </div>
+                                                                                  
+                                        
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

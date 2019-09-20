@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Profile;
 use Auth;
+//課題17
+use App\ProfileHistory;
+use Carbon\Carbon;
+
 
 class ProfileController extends Controller
 {
@@ -21,9 +25,9 @@ class ProfileController extends Controller
       $form = $request->all();
       
       //データベース保存
-      $profiles->fill($form);
-      $profiles->user_id = Auth::id();
-      $profiles->save();
+      $profile->fill($form);
+      $profile->user_id = Auth::id();
+      $profile->save();
       
       return redirect('admin/profile/create');
     }
@@ -32,7 +36,7 @@ class ProfileController extends Controller
     {
       $cond_name = $request->cond_name;
       if ($cond_name !=''){
-        $posts = Profile::where('name',$cond_title)->get();
+        $posts = Profile::where('name',$cond_name)->get();
       }else{
       $posts = Profile::all();
     }
@@ -56,6 +60,12 @@ class ProfileController extends Controller
       unset($profile_form['_token']);
       $profile->fill($profile_form)->save();
       
-      return redirect('admin/profile');
+      //課題17
+      $history = new ProfileHistory;
+      $history->profile_id = $profile->id;
+      $history->edited_at = Carbon::now();
+      $history->save();
+      
+      return redirect('admin/profile/');
     }
 }
